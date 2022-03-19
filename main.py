@@ -24,9 +24,9 @@ def shorten_link(token, url):
         url = url_with_scheme(url)
         payload = {'long_url': url}
 
-    bitlink = requests.post('https://api-ssl.bitly.com/v4/shorten', headers=headers, json=payload)
-    bitlink.raise_for_status()
-    return bitlink.json()
+    bitlink_response = requests.post('https://api-ssl.bitly.com/v4/shorten', headers=headers, json=payload)
+    bitlink_response.raise_for_status()
+    return bitlink_response.json()
 
 
 def count_clicks(token, url):
