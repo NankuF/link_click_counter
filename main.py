@@ -43,7 +43,7 @@ def is_bitlink(token, url):
     return shorten_link(token, url)['link']
 
 
-if __name__ == '__main__':
+def main():
     load_dotenv()
     access_token = os.getenv('ACCESS_TOKEN')
 
@@ -54,3 +54,7 @@ if __name__ == '__main__':
         print(name_error)
     except HTTPError as error:
         print(error)
+
+
+if __name__ == '__main__':
+    main()
