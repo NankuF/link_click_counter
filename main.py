@@ -26,7 +26,7 @@ def shorten_link(token, url):
 
     bitlink_response = requests.post('https://api-ssl.bitly.com/v4/shorten', headers=headers, json=payload)
     bitlink_response.raise_for_status()
-    return bitlink_response.json()
+    return bitlink_response.json()['link']
 
 
 def count_clicks(token, url):
@@ -39,7 +39,7 @@ def count_clicks(token, url):
     bitlink_response = requests.get(f'https://api-ssl.bitly.com/v4/bitlinks/{url}/clicks/summary',
                                  headers=headers, params=params)
     bitlink_response.raise_for_status()
-    return bitlink_response.json()
+    return bitlink_response.json()['total_clicks']
 
 
 def is_bitlink(token, url):
@@ -61,9 +61,9 @@ def main():
     user_url = input('Введите ссылку: ')
     try:
         if is_bitlink(access_token, user_url):
-            print(count_clicks(access_token, user_url)['total_clicks'])
+            print(count_clicks(access_token, user_url))
         else:
-            print(shorten_link(access_token, user_url)['link'])
+            print(shorten_link(access_token, user_url))
     except NameError as name_error:
         print(name_error)
     except HTTPError as error:
