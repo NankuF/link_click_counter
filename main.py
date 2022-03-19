@@ -36,10 +36,10 @@ def count_clicks(token, url):
     if ('http' or 'https') in url:
         url = url_without_scheme(url)
 
-    number_clicks = requests.get(f'https://api-ssl.bitly.com/v4/bitlinks/{url}/clicks/summary',
+    bitlink_response = requests.get(f'https://api-ssl.bitly.com/v4/bitlinks/{url}/clicks/summary',
                                  headers=headers, params=params)
-    number_clicks.raise_for_status()
-    return number_clicks.json()
+    bitlink_response.raise_for_status()
+    return bitlink_response.json()
 
 
 def is_bitlink(token, url):
