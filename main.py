@@ -56,7 +56,7 @@ def is_bitlink(token, url):
 
 def main():
     load_dotenv()
-    access_token = os.getenv('ACCESS_TOKEN')
+    access_token = os.getenv('BITLY_ACCESS_TOKEN')
 
     user_url = input('Введите ссылку: ')
     try:
