@@ -41,7 +41,7 @@ https://app.bitly.com/settings/api/
 ```
 Сохранить токен в .env:
 ```bash
-echo 'ACCESS_TOKEN=ваш_токен' > .env
+echo 'BITLY_ACCESS_TOKEN=ваш_токен' > .env
 ```
 Файл .env должен быть рядом с main.py
 ```
