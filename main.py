@@ -48,8 +48,8 @@ def is_bitlink(token, url):
     if ('http' or 'https') in url:
         url = url_without_scheme(url)
 
-    response = requests.get(f'https://api-ssl.bitly.com/v4/bitlinks/{url}', headers=headers)
-    if response.ok:
+    bitlink_response = requests.get(f'https://api-ssl.bitly.com/v4/bitlinks/{url}', headers=headers)
+    if bitlink_response.ok:
         return True
     return False
 
