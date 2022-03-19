@@ -5,9 +5,6 @@ from dotenv import load_dotenv
 import requests
 from requests import HTTPError
 
-load_dotenv()
-access_token = os.getenv('ACCESS_TOKEN')
-
 
 def shorten_link(token, url):
     headers = {'Authorization': token}
@@ -47,6 +44,9 @@ def is_bitlink(token, url):
 
 
 if __name__ == '__main__':
+    load_dotenv()
+    access_token = os.getenv('ACCESS_TOKEN')
+
     user_url = input('Введите ссылку: ')
     try:
         print(is_bitlink(access_token, user_url))
