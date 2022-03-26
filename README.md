@@ -2,7 +2,7 @@
 
 Скрипт позволяет сократить ссылку и посчитать, сколько раз был переход по короткой ссылке.
 
-## Environment
+## Окружение
 ### Подготовка Linux:<br>
 
 Скачать git:
@@ -30,7 +30,7 @@ python -m venv venv
 pip install -r requirements.txt 
 ```
 
-### Environment variables<br>
+### Переменные окружения <br>
 Зарегистрироваться на bit.ly:
 ```
 https://bitly.com/
@@ -49,7 +49,7 @@ main.py
 .env
 ```
 
-## Run: <br>
+## Запуск: <br>
 
 Ввести в консоли код:
 ```bash
