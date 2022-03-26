@@ -33,7 +33,7 @@ def count_clicks(token, url):
     headers = {'Authorization': f'Bearer {token}'}
     params = {'unit': 'day', 'units': '-1'}
 
-    if ('http' or 'https') in url:
+    if 'https' in url:
         url = url_without_scheme(url)
 
     bitlink_response = requests.get(f'https://api-ssl.bitly.com/v4/bitlinks/{url}/clicks/summary',
