@@ -5,11 +5,6 @@ from dotenv import load_dotenv
 import requests
 
 
-def get_url_with_scheme(url):
-    parsed_url = urlparse(url)
-    return f'https://{parsed_url.geturl()}'
-
-
 def get_url_without_scheme(url):
     parsed_url = urlparse(url)
     return parsed_url._replace(scheme="").geturl().replace('//', '', 1)
@@ -18,9 +13,6 @@ def get_url_without_scheme(url):
 def shorten_link(token, url):
     headers = {'Authorization': f'Bearer {token}'}
     payload = {'long_url': url}
-
-    if ('http' or 'https') not in url:
-        payload = {'long_url': get_url_with_scheme(url)}
 
     bitlink_response = requests.post('https://api-ssl.bitly.com/v4/shorten', headers=headers, json=payload)
     bitlink_response.raise_for_status()
@@ -43,9 +35,7 @@ def count_clicks(token, url):
 def is_bitlink(token, url):
     headers = {'Authorization': f'Bearer {token}'}
 
-    if ('http' or 'https') in url:
-        url = get_url_without_scheme(url)
-
+    url = get_url_without_scheme(url)
     bitlink_response = requests.get(f'https://api-ssl.bitly.com/v4/bitlinks/{url}', headers=headers)
     if bitlink_response.ok:
         return True
