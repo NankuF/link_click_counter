@@ -17,7 +17,7 @@ def url_without_scheme(url):
 
 
 def shorten_link(token, url):
-    headers = {'Authorization': token}
+    headers = {'Authorization': f'Bearer {token}'}
     payload = {'long_url': url}
 
     if ('http' or 'https') not in url:
@@ -30,14 +30,14 @@ def shorten_link(token, url):
 
 
 def count_clicks(token, url):
-    headers = {'Authorization': token}
+    headers = {'Authorization': f'Bearer {token}'}
     params = {'unit': 'day', 'units': '-1'}
 
     if ('http' or 'https') in url:
         url = url_without_scheme(url)
 
     bitlink_response = requests.get(f'https://api-ssl.bitly.com/v4/bitlinks/{url}/clicks/summary',
-                                 headers=headers, params=params)
+                                    headers=headers, params=params)
     bitlink_response.raise_for_status()
     return bitlink_response.json()['total_clicks']
 
