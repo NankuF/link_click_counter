@@ -3,7 +3,6 @@ from urllib.parse import urlparse
 
 from dotenv import load_dotenv
 import requests
-from requests import HTTPError
 
 
 def get_url_with_scheme(url):
@@ -63,16 +62,11 @@ def main():
     access_token = os.getenv('BITLY_ACCESS_TOKEN')
 
     user_url = input('Введите ссылку: ')
-    try:
-        if is_bitlink(access_token, user_url):
-            print(count_clicks(access_token, user_url))
-        else:
-            is_valid_url(user_url)
-            print(shorten_link(access_token, user_url))
-    except NameError as name_error:
-        print(name_error)
-    except HTTPError as error:
-        print(error)
+    if is_bitlink(access_token, user_url):
+        print(count_clicks(access_token, user_url))
+    else:
+        is_valid_url(user_url)
+        print(shorten_link(access_token, user_url))
 
 
 if __name__ == '__main__':
