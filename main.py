@@ -7,13 +7,13 @@ from requests import HTTPError
 
 
 def get_url_with_scheme(url):
-    parse_url = urlparse(url)
-    return f'https://{parse_url.geturl()}'
+    parsed_url = urlparse(url)
+    return f'https://{parsed_url.geturl()}'
 
 
 def get_url_without_scheme(url):
-    parse_url = urlparse(url)
-    return parse_url._replace(scheme="").geturl().replace('//', '', 1)
+    parsed_url = urlparse(url)
+    return parsed_url._replace(scheme="").geturl().replace('//', '', 1)
 
 
 def shorten_link(token, url):
