@@ -6,12 +6,12 @@ import requests
 from requests import HTTPError
 
 
-def url_with_scheme(url):
+def get_url_with_scheme(url):
     parse_url = urlparse(url)
     return f'https://{parse_url.geturl()}'
 
 
-def url_without_scheme(url):
+def get_url_without_scheme(url):
     parse_url = urlparse(url)
     return parse_url._replace(scheme="").geturl().replace('//', '', 1)
 
@@ -21,7 +21,7 @@ def shorten_link(token, url):
     payload = {'long_url': url}
 
     if ('http' or 'https') not in url:
-        url = url_with_scheme(url)
+        url = get_url_with_scheme(url)
         payload = {'long_url': url}
 
     bitlink_response = requests.post('https://api-ssl.bitly.com/v4/shorten', headers=headers, json=payload)
@@ -34,7 +34,7 @@ def count_clicks(token, url):
     params = {'unit': 'day', 'units': '-1'}
 
     if 'https' in url:
-        url = url_without_scheme(url)
+        url = get_url_without_scheme(url)
 
     bitlink_response = requests.get(f'https://api-ssl.bitly.com/v4/bitlinks/{url}/clicks/summary',
                                     headers=headers, params=params)
@@ -46,7 +46,7 @@ def is_bitlink(token, url):
     headers = {'Authorization': token}
 
     if ('http' or 'https') in url:
-        url = url_without_scheme(url)
+        url = get_url_without_scheme(url)
 
     bitlink_response = requests.get(f'https://api-ssl.bitly.com/v4/bitlinks/{url}', headers=headers)
     if bitlink_response.ok:
