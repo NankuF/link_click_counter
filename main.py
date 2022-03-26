@@ -21,8 +21,7 @@ def shorten_link(token, url):
     payload = {'long_url': url}
 
     if ('http' or 'https') not in url:
-        url = get_url_with_scheme(url)
-        payload = {'long_url': url}
+        payload = {'long_url': get_url_with_scheme(url)}
 
     bitlink_response = requests.post('https://api-ssl.bitly.com/v4/shorten', headers=headers, json=payload)
     bitlink_response.raise_for_status()
