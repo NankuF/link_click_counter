@@ -41,7 +41,7 @@ def count_clicks(token, url):
 
 
 def is_bitlink(token, url):
-    headers = {'Authorization': token}
+    headers = {'Authorization': f'Bearer {token}'}
 
     if ('http' or 'https') in url:
         url = get_url_without_scheme(url)
