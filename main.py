@@ -33,9 +33,7 @@ def is_bitlink(token, url):
     headers = {'Authorization': f'Bearer {token}'}
 
     bitlink_response = requests.get(f'https://api-ssl.bitly.com/v4/bitlinks/{url}', headers=headers)
-    if bitlink_response.ok:
-        return True
-    return False
+    return bitlink_response.ok
 
 
 def validate_url(url):
