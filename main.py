@@ -13,6 +13,9 @@ def get_url_without_scheme(url):
 def shorten_link(token, url):
     headers = {'Authorization': f'Bearer {token}'}
     payload = {'long_url': url}
+    if os.getenv('CUSTOM_DOMAIN'):
+        payload = {'long_url': url,
+                   'domain': os.getenv('CUSTOM_DOMAIN')}
 
     bitlink_response = requests.post('https://api-ssl.bitly.com/v4/shorten', headers=headers, json=payload)
     bitlink_response.raise_for_status()
