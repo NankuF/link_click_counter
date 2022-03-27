@@ -23,9 +23,6 @@ def count_clicks(token, url):
     headers = {'Authorization': f'Bearer {token}'}
     params = {'unit': 'day', 'units': '-1'}
 
-    if 'https' in url:
-        url = get_url_without_scheme(url)
-
     bitlink_response = requests.get(f'https://api-ssl.bitly.com/v4/bitlinks/{url}/clicks/summary',
                                     headers=headers, params=params)
     bitlink_response.raise_for_status()
@@ -35,7 +32,6 @@ def count_clicks(token, url):
 def is_bitlink(token, url):
     headers = {'Authorization': f'Bearer {token}'}
 
-    url = get_url_without_scheme(url)
     bitlink_response = requests.get(f'https://api-ssl.bitly.com/v4/bitlinks/{url}', headers=headers)
     if bitlink_response.ok:
         return True
@@ -52,10 +48,11 @@ def main():
     access_token = os.getenv('BITLY_ACCESS_TOKEN')
 
     user_url = input('Введите ссылку: ')
-    if is_bitlink(access_token, user_url):
-        print(count_clicks(access_token, user_url))
+    validate_url(user_url)
+    url_without_scheme = get_url_without_scheme(user_url)
+    if is_bitlink(access_token, url_without_scheme):
+        print(count_clicks(access_token, url_without_scheme))
     else:
-        validate_url(user_url)
         print(shorten_link(access_token, user_url))
 
 
