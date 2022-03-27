@@ -42,7 +42,7 @@ def is_bitlink(token, url):
     return False
 
 
-def is_valid_url(url):
+def validate_url(url):
     response = requests.get(url)
     response.raise_for_status()
 
@@ -55,7 +55,7 @@ def main():
     if is_bitlink(access_token, user_url):
         print(count_clicks(access_token, user_url))
     else:
-        is_valid_url(user_url)
+        validate_url(user_url)
         print(shorten_link(access_token, user_url))
 
 
