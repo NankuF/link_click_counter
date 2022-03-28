@@ -43,6 +43,10 @@ https://app.bitly.com/settings/api/
 ```bash
 echo 'BITLY_ACCESS_TOKEN=ваш_токен' > .env
 ```
+Сохранить домен в .env, например my_domain.ru:
+```bash
+echo 'CUSTOM_DOMAIN=my_domain.ru' >> .env
+```
 Файл .env должен быть рядом с main.py
 ```
 main.py
