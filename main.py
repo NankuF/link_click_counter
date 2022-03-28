@@ -10,12 +10,10 @@ def get_url_without_scheme(url):
     return parsed_url._replace(scheme="").geturl().replace('//', '', 1)
 
 
-def shorten_link(token, url):
+def shorten_link(token, url, custom_domain):
     headers = {'Authorization': f'Bearer {token}'}
-    payload = {'long_url': url}
-    if os.getenv('CUSTOM_DOMAIN'):
-        payload = {'long_url': url,
-                   'domain': os.getenv('CUSTOM_DOMAIN')}
+    payload = {'long_url': url,
+               'domain': custom_domain}
 
     bitlink_response = requests.post('https://api-ssl.bitly.com/v4/shorten', headers=headers, json=payload)
     bitlink_response.raise_for_status()
@@ -47,6 +45,7 @@ def validate_url(url):
 def main():
     load_dotenv()
     access_token = os.getenv('BITLY_ACCESS_TOKEN')
+    custom_domain = os.getenv('CUSTOM_DOMAIN')
 
     user_url = input('Введите ссылку: ')
     validate_url(user_url)
@@ -54,7 +53,7 @@ def main():
     if is_bitlink(access_token, url_without_scheme):
         print(count_clicks(access_token, url_without_scheme))
     else:
-        print(shorten_link(access_token, user_url))
+        print(shorten_link(access_token, user_url, custom_domain))
 
 
 if __name__ == '__main__':
