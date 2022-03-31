@@ -57,5 +57,9 @@ main.py
 
 Ввести в консоли код:
 ```bash
-python main.py
+python main.py <ваш url>
+```
+Например:
+```bash
+python main.py https://mail.ru
 ```
