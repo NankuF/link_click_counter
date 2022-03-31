@@ -1,3 +1,4 @@
+import argparse
 import os
 from urllib.parse import urlparse
 
@@ -42,12 +43,21 @@ def validate_url(url):
     response.raise_for_status()
 
 
+def create_parser():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('url', help='Адрес сайта')
+
+    return parser
+
+
 def main():
     load_dotenv()
     access_token = os.getenv('BITLY_ACCESS_TOKEN')
     custom_domain = os.getenv('CUSTOM_DOMAIN')
 
-    user_url = input('Введите ссылку: ')
+    parser = create_parser()
+    user_url = parser.parse_args().url
+
     validate_url(user_url)
     url_without_scheme = get_url_without_scheme(user_url)
     if is_bitlink(access_token, url_without_scheme):
